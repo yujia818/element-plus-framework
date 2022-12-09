@@ -10,6 +10,8 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "@wangeditor/editor": "^5.1.23",
+    "@wangeditor/editor-for-vue": "^5.1.12",
     "axios": "^1.2.0",
     "element-plus": "^2.2.13",
     "vue": "^3.2.36",
