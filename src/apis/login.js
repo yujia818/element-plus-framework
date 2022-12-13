@@ -7,3 +7,10 @@ export const login = ({ username, password }) => {
         passWord: password
     });
 }
+
+export const regist = ({ username, password }) => {
+    return call.post('/user/regist', {
+        userName: username,
+        passWord: password
+    });
+}

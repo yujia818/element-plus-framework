@@ -1,6 +1,8 @@
 <template>
   <div class="editor">
-    <div class="header"><div class="left"></div><el-button class="right" @click="onSave">保存</el-button></div>
+    <div class="header"><div class="left"></div>
+      <el-button class="save-button" type="primary" :icon="Document" circle @click="onSave" />
+    </div>
     <Toolbar
       style="border-bottom: 1px solid #ccc"
       :editor="editorRef"
@@ -23,16 +25,18 @@ import { useRoute } from "vue-router";
 import { onBeforeUnmount, ref, shallowRef, onMounted, watch } from "vue";
 import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
 import { get_doc, save_doc } from "../../apis/doc";
+import { Document } from "@element-plus/icons-vue";
 
 export default {
   components: { Editor, Toolbar },
   setup() {
     const route = useRoute();
+    
     // 编辑器实例，必须用 shallowRef
     const editorRef = shallowRef();
 
     // 内容 HTML
-    const valueHtml = ref("<p>hello</p>");
+    const valueHtml = ref("");
 
     const loadDoc = async (docId) => {
       const res = await get_doc({ docId });
@@ -45,7 +49,9 @@ export default {
     // 模拟 ajax 异步获取内容
     onMounted(async () => {
       const { docId } = route.params;
-      await loadDoc(docId);
+      if (docId) {
+        await loadDoc(docId);
+      }
     });
 
     const toolbarConfig = {};
@@ -61,7 +67,9 @@ export default {
     watch(
       () => route.params.docId,
       async (docId) => {
-        loadDoc(docId);
+        if (docId) {
+          loadDoc(docId);
+        }
       }
     );
 
@@ -81,11 +89,12 @@ export default {
     return {
       editorRef,
       valueHtml,
-      mode: "default", // 或 'simple'
+      mode: "simple", // 或 'simple'
       toolbarConfig,
       editorConfig,
       handleCreated,
       onSave,
+      Document
     };
   },
 };
@@ -93,10 +102,18 @@ export default {
 
 <style scoped lang="scss">
 .editor {
-    .header {
-        border-bottom: 1px solid #ccc;
-        display: flex; 
-        justify-content: space-between
+  min-width: calc(100% - 200px);
+  max-width: calc(100% - 200px);
+  .header {
+      height: 34px;
+      border-bottom: 1px solid #ccc;
+      display: flex; 
+      justify-content: space-between;
+      padding: 8px 8px 0 8px;
+      .save-button {
+        height: 24px;
+        width: 24px;
+      }
     }
 }
 </style>

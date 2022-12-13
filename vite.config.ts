@@ -18,6 +18,7 @@ const pathSrc = path.resolve(__dirname, 'src')
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "/app/",
   server: {
     proxy: {
       '/api': 'http://localhost:7001'
@@ -25,13 +26,13 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '~/': `${pathSrc}/`,
+      // '~/': `${pathSrc}/`,
     },
   },
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "~/styles/element/index.scss" as *;`,
+        additionalData: `@use "./src/styles/element/index.scss" as *;`,
       },
     },
   },

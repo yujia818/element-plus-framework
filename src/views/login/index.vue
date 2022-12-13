@@ -1,10 +1,11 @@
 <template>
   <div class="login-view">
+    <div class="title">Notes</div>
     <el-form
       ref="formRef"
       :model="form"
-      label-width="120px"
       class="demo-dynamic"
+      label-position="top"
     >
       <el-form-item
         prop="username"
@@ -30,10 +31,11 @@
           },
         ]"
       >
-        <el-input v-model="form.password" />
+        <el-input v-model="form.password" show-password/>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm()">登陆</el-button>
+        <el-button type="primary" @click="onLogin()">登陆</el-button>
+        <el-button type="primary" @click="onRegist()">注册</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -42,26 +44,42 @@
 <script setup>
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
-import { login } from "../../apis/login";
+import { login, regist } from "../../apis/login";
 
 const router = useRouter();
 const form = reactive({});
 
-const submitForm = async () => {
+const onLogin = async () => {
   const res = await login(form);
   const { code, data } = res;
   if (code === 100) {
     window.localStorage.setItem('access-token', data.token);
-    router.push(`/home/${data.userId}`);
+    router.push(`/home/${data.id}/docs`);
+  }
+};
+
+const onRegist = async () => {
+  const res = await regist(form);
+  const { code, data } = res;
+  if (code === 100) {
+    window.localStorage.setItem('access-token', data.token);
+    router.push(`/home/${data.id}/docs`);
   }
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .login-view {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  flex-direction: column;
+  background-color: #f5f7fa;
+  .title {
+    font-size: 48px;
+    margin-bottom: 32px;
+    color: #303133;
+  }
 }
 </style>

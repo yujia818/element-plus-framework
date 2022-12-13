@@ -10,10 +10,11 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.0.10",
     "@wangeditor/editor": "^5.1.23",
     "@wangeditor/editor-for-vue": "^5.1.12",
     "axios": "^1.2.0",
-    "element-plus": "^2.2.13",
+    "element-plus": "^2.2.26",
     "vue": "^3.2.36",
     "vue-router": "^4.1.6"
   },

@@ -10,7 +10,7 @@ import router from './routers';
 
 // or use cdn, uncomment cdn link in `index.html`
 
-import "~/styles/index.scss";
+import "./styles/index.scss";
 import 'uno.css'
 
 // If you want to use ElMessage, import it.
